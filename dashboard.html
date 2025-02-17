@@ -5,19 +5,46 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Panel de Administrador</title>
+    <style>
+        .estado-checkbox {
+            transform: scale(1.5);
+            cursor: pointer;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #f8f9fa;
+        }
+        button {
+            padding: 8px 16px;
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
         <h1>Panel de Administración</h1>
-        <button onclick="window.location.href='index.html'">Cerrar Sesión</button>
+        <button onclick="logout()">Cerrar Sesión</button>
 
         <h2>Lista de Usuarios</h2>
-        <table border="1">
+        <table>
             <thead>
                 <tr>
                     <th>Usuario</th>
                     <th>Rol</th>
-                    <th>Acciones</th>
+                    <th>Activo</th>
                 </tr>
             </thead>
             <tbody id="usuariosTableBody"></tbody>
