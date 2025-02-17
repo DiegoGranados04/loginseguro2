@@ -3,13 +3,27 @@
 <head>
     <link rel="stylesheet" href="stylesheet.css">
     <meta charset="UTF-8">
-    <title>Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Administrador</title>
 </head>
 <body>
     <div class="container">
-        <div id="dashboardContent"></div>
-        <button id="logoutBtn">Cerrar Sesión</button>
+        <h1>Panel de Administración</h1>
+        <button onclick="window.location.href='index.html'">Cerrar Sesión</button>
+
+        <h2>Lista de Usuarios</h2>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Usuario</th>
+                    <th>Rol</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody id="usuariosTableBody"></tbody>
+        </table>
     </div>
+
     <script src="dashboard.js"></script>
 </body>
 </html>
