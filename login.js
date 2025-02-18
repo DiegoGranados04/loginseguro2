@@ -3,12 +3,11 @@ const API_URL = 'http://localhost:3000/api';
 document.addEventListener('DOMContentLoaded', () => {
     const usuario = document.getElementById('username');
     const contrasena = document.getElementById('password');
-    const repetirContrasena = document.getElementById('repeatPassword'); // Nuevo campo agregado
+    const repetirContrasena = document.getElementById('repeatPassword');
     const loginBtn = document.getElementById('loginBtn');
     const registerBtn = document.getElementById('registerBtn');
     const errorMsg = document.getElementById('errorMsg');
 
-    // Validación mejorada
     const validarInputs = (esRegistro = false) => {
         const usuarioRegex = /^[a-zA-Z0-9_]{4,15}$/;
         const contrasenaRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*?&]{8,}$/;
@@ -23,7 +22,6 @@ document.addEventListener('DOMContentLoaded', () => {
             return false;
         }
 
-        // Validar contraseña repetida solo en el registro
         if (esRegistro && contrasena.value !== repetirContrasena.value) {
             mostrarError('Las contraseñas no coinciden');
             return false;
@@ -37,7 +35,6 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => errorMsg.textContent = '', 5000);
     };
 
-    // Manejo de Login
     const handleLogin = async () => {
         if (!validarInputs()) return;
 
@@ -59,13 +56,18 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             localStorage.setItem('authToken', data.token);
-            window.location.href = 'dashboard.html';
+
+            // Redirigir según el rol
+            if (data.role === "ADMIN") {
+                window.location.href = 'dashboard.html';
+            } else {
+                window.location.href = `welcome.html?user=${usuario.value}`;
+            }
         } catch (error) {
             mostrarError(`Error: ${error.message}`);
         }
     };
 
-    // Manejo de Registro (ahora con repeatedPassword)
     const handleRegister = async () => {
         if (!validarInputs(true)) return;
 
@@ -76,7 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 body: JSON.stringify({
                     userName: usuario.value,  
                     password: contrasena.value,
-                    repeatedPassword: repetirContrasena.value  // Nuevo campo agregado
+                    repeatedPassword: repetirContrasena.value  
                 })
             });
 
@@ -87,10 +89,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 throw new Error(data.error || 'Error en el registro');
             }
 
-            mostrarError('¡Registro exitoso! Por favor inicia sesión');
-            usuario.value = '';
-            contrasena.value = '';
-            repetirContrasena.value = '';  // Limpiar campo de repetición
+            // Si el usuario se registra correctamente, lo redirige a `welcome.html`
+            window.location.href = `welcome.html?user=${usuario.value}`;
         } catch (error) {
             mostrarError(`Error: ${error.message}`);
         }

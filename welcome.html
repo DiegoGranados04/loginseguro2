@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <link rel="stylesheet" href="stylesheet.css">
+    <meta charset="UTF-8">
+    <title>Éxito</title>
+</head>
+<body>
+    <div class="container">
+        <h1>¡Hola usuario!</h1>
+        <p>Tu inicio de sesión fue exitoso</p>
+        <button onclick="logout()">Cerrar Sesión</button>
+    </div>
+    <script>
+        const logout = () => {
+            localStorage.removeItem('authToken');
+            window.location.href = 'login.html';
+        };
+    </script>
+</body>
+</html>
